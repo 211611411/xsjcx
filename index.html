@@ -1,34 +1,115 @@
-<!DOCTYPE html>
-<html>
-<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">   
-	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	    <meta name="format-detection" content="telephone=no">
-        <title>系统维护中</title>
-        <link rel="stylesheet" href="css/base.css" type="text/css">
-        <link rel="stylesheet" href="css/main.css" type="text/css">
-</head>
-<body style="background-color: #fafafa;"> 
-	<div class="main-style">
-	 <div class="no_data">
-{
-    "new_version": "2.3.1",
-    "disable_old_version": false,
-    "show_notice": false,
-    "image_url": "http://conf.iqinu.com/img/news.jpg",
-    "api_url": "https://cdn.jsdelivr.net/gh/211611411/xgg/211611411aa.txt",
-    "remark": "在匆匆岁月里，多少美好瞬间已成过去，再回首，恍然如梦。虽不能相伴到最后，仍感激命运曾让我们相遇。离别也是人生的旅程，愿未来的你仍能与家人共享电视机前的美好时光。",
-    "show_marquee": true,
-    "marquee_content": "温馨提示：不要相信视频中任何广告，谨防上当！",
-    "update": "Yes",
-    "apk_file_url": "https://ghproxy.net/https://raw.githubusercontent.com/lmclub/box/main/apk/lmbox.apk",
-    "update_log": "可移动遥控器上下键点确定升级\n1、去除64位机支持；\n2、更换图片库；\n3、修复一些已知BUG;",
-    "target_size": "28.3M",
-    "new_md5": "0c38ba81efb647504690e3b932b81f7a",
-    "constraint": false
-}		<!--<img class="width100" src="images/1.png" alt="底部">-->
-	  </div>
-	</div>
-	<style type="text/css">body, a, a:link{cursor:url(images/cur117.cur), default;} a:hover {cursor:url(images/cur116.cur),wait;}</style>
-</body>
+﻿<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8"/>
+        <title>小世界QQ账号查询</title>
+        <link rel="stylesheet" type="text/css" href="https://www.layuicdn.com/layui/css/layui.css"/>
+      <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    </head>
+    <body style="background-color: #F2F2F2;">
+        
+        <ul class="layui-nav" lay-filter="">
+            <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+            <li class="layui-nav-item"><a href="http://www.xkwo.com">官方QQ群</a></li>
+        </ul>
+        
+        <div class="layui-container">
+            <div class="layui-row layui-col-space15"> 
+                <div class="layui-col">
+                    
+                    <div class="layui-card">
+                        <div class="layui-card-header">教程</div>
+                        <div class="layui-card-body">
+                            1.进入个人主页复制链接<br>
+                            2.粘贴至本页面输入框<br>
+                            3.点击查询即可<br>
+                            4.如果出现错误，请刷新，或者进入官方群反馈
+                        </div>
+                    </div>
+                    
+                    <div class="layui-card">
+                        <div class="layui-card-header">控制台</div>
+                        <div class="layui-card-body">
+                        
+                            <form class="layui-form layui-form-pane">
+                                
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">链接</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" id="url" autocomplete="off" placeholder="请输入链接" value="" class="layui-input">
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                      <button type="button" id="query_button" class="layui-btn" onclick="query()">查询</button>
+                                    </div>
+                                  </div>
+                                
+                            <form>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="layui-col-md12">
+                        <div class="layui-card">
+                            <div class="layui-card-body" style="text-align: center">
+                                Copyright ©2024 <a href="https://www.xkwo.com/">小K网</a>
+                            </div>
+                        </div>
+                    </div>
+                        
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://www.layuicdn.com/layui/layui.js"></script>
+        <script type="text/javascript">
+            layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element'], function() {
+              var laydate = layui.laydate
+              ,laypage = layui.laypage
+              ,layer = layui.layer
+              ,table = layui.table
+              ,carousel = layui.carousel
+              ,upload = layui.upload
+              ,element = layui.element;
+            });
+        </script>
+        
+        <script src="https://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+        <script src="https://cdn.staticfile.org/axios/0.18.0/axios.min.js"></script>
+        
+        <script>
+             function getUrl(text) {
+                let reg = /(http:\/\/|https:\/\/)((\w|=|\?|\.|\/|&|-)+)/g;
+                return text.match(reg);
+            }
+            
+            function query() {
+                var url = '';
+                
+                url = $('#url').val();
+                
+                document.getElementById('query_button').disabled = true;
+                
+                if(url == ''){
+                    layer.msg('请输入链接');
+                    document.getElementById('query_button').disabled = false;
+                    
+                } else {
+                    var data = '';
+                    axios.get('https://api.api.h2oye.com/qq/get_xsj_qq_number?url=' + getUrl(url)[0])
+                        .then(function(response){
+                            data = response['data']['data']
+                            layer.open({
+                                content: 'QQ账号:' + data
+                            });
+                            document.getElementById('query_button').disabled = false;
+                    });
+                }
+            }
+        </script>
+    </body>
 </html>
